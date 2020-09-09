@@ -1,0 +1,14 @@
+//- 레이아웃 가져오기
+extends layouts/main
+
+//- 레이아웃에서 block content 부분을 작성할 수 있다
+block content
+    .form-container
+        //- action 속성을 고쳐서 해당 URL로 설정
+        form(action=routes.editVideo(video.id), method="post")
+            input(type="text", placeholder="Title", name="title", value=video.title)
+            //- value속성이 없으니 별도로 끝에 명기
+            textarea(name="description", placeholder="Description")=video.description
+            input(type="submit", value="Update Video")
+        a.form-container__link(href=routes.deleteVideo(video.id))
+            button.delete Delete Video

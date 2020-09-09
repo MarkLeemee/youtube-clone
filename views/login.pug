@@ -1,0 +1,11 @@
+//- 레이아웃 가져오기
+extends layouts/main
+
+//- 레이아웃에서 block content 부분을 작성할 수 있다
+block content
+    .form-container
+        form(action=routes.login, method="post")
+            input(type="email", name="email", placeholder="Email",required=true)
+            input(type="password", name="password", placeholder="Password",required=true)
+            input(type="submit",value="Log In",required=true)
+        include partials/socialLogin

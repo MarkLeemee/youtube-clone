@@ -1,0 +1,19 @@
+//- 레이아웃 가져오기
+extends layouts/main
+include mixins/videoBlock
+
+//- 레이아웃에서 block content 부분을 작성할 수 있다
+block content
+    .search__header
+         h3 Searching for: #{searchingBy}
+    .search__videos
+        //- 검색된 비디오가 없으면 h5 출력
+        if videos.length === 0
+            h5 No Videos Found
+        each item in videos
+            +videoBlock({
+                title:item.title,
+                views:item.views,
+                videoFile:item.videoFile,
+                id:item.id
+            })

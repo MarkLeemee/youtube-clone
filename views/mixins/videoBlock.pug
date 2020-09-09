@@ -1,0 +1,12 @@
+//- 인자로 객체를 하나 받으며, 그 객체의 이름을 video로 지정
+//- 그리고 인자값을 활용하여 이해 html 태그가 추가된다 (함수개념)
+mixin videoBlock(video = {})
+    .videoBlock
+        //- 클릭시 해당 비디오 id 디테일로 넘어감
+        a(href=routes.videoDetail(video.id))
+            video.videoBlock__thumbnail(src=video.videoFile, controls=false)
+            h4.videoBlock__title=video.title
+            if video.views === 1
+                h6.videoBlock__views 1 view
+            else
+                h6.videoBlock__views #{video.views} views
