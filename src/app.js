@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
+import path from "path";
 import MongoStore from "connect-mongo";
 // locals는 오직 템플릿(pug)에서만 쓰여지고
 // routes는 자바스크립트에서 활용
@@ -25,9 +26,11 @@ const app = express();
 
 const CokieStore = MongoStore(session);
 // 보안 관련 미들웨어라 제일 처음에 넣어준다.
-app.use(helmet({
-    contentSecurityPolicy: false,
-}));
+app.use(
+    helmet({
+        contentSecurityPolicy: false,
+    })
+);
 // view engine을 pug로 설정
 app.set("view engine", "pug");
 // middleware
@@ -37,9 +40,9 @@ app.set("view engine", "pug");
 // 여러 서버를 사용하고 언제든 서버가 업데이트 될 수도 있기에
 // 이렇게 파일을 직접 다루는게 아님!!!!
 // 또한 용량이랑 트래픽 문제도 생길 수 있음
-app.use("/uploads", express.static("uploads"));
+app.set("views", path.join(__dirname, "views"));
 // 웹팩으로 만든 css와 js를 서버에도 추가
-app.use("/static", express.static("static"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
@@ -58,8 +61,8 @@ app.use(
         saveUninitialized: false,
         // 저장하는 곳 설정
         store: new CokieStore({
-            mongooseConnection: mongoose.connection
-        })
+            mongooseConnection: mongoose.connection,
+        }),
     })
 );
 // app에서 passport 내려온 쿠기를 찾아보고 거기에 해당하는 사용자를 찾는다

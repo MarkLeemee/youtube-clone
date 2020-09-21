@@ -6,17 +6,19 @@ dotenv.config();
 
 // mongoose 환경설정 (mongoose가 mongoDB에게 말하는)
 mongoose.connect(
-  process.env.MONGO_URL_PROD, {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  }
+    process.env.PRODUCTION ? process.env.MONGO_URL_PROD : process.env.MONGO_URL,
+    {
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
+    }
 );
 
 const db = mongoose.connection;
 
 const handleOpen = () => console.log("✅  Connected to DB");
-const handleError = error => console.log(`❌ Error on DB Connectionn:${error}`);
+const handleError = (error) =>
+    console.log(`❌ Error on DB Connectionn:${error}`);
 
 // once는 한번 실행
 db.once("open", handleOpen);
