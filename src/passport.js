@@ -18,7 +18,9 @@ passport.use(
     new GithubStrategy({
             clientID: process.env.GH_ID,
             clientSecret: process.env.GH_SECRET,
-            callbackURL: `http://localhost:4000${routes.githubCallback}`,
+            callbackURL: process.env.PRODUCTION ?
+                `https://polar-sea-27980.herokuapp.com${routes.githubCallback}` :
+                `http://localhost:4000${routes.githubCallback}`
         },
         // 사용자가 깃헙에서 돌아왔을 때 호출되는 함수
         githubLoginCallback
