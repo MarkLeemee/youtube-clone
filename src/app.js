@@ -7,6 +7,7 @@ import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
 import path from "path";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 // locals는 오직 템플릿(pug)에서만 쓰여지고
 // routes는 자바스크립트에서 활용
@@ -65,6 +66,8 @@ app.use(
         }),
     })
 );
+
+app.use(flash());
 // app에서 passport 내려온 쿠기를 찾아보고 거기에 해당하는 사용자를 찾는다
 //그리고 찾은 사용자를 req 객체. 즉, req.user로 만들어준다
 app.use(passport.initialize());
