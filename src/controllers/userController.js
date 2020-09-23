@@ -15,7 +15,7 @@ export const postJoin = async (req, res, next) => {
             email,
             password,
             password2
-        },
+        }
     } = req;
     if (password !== password2) {
         req.flash("error", "Passwords don't match");
