@@ -21,19 +21,15 @@ export const postJoin = async (req, res, next) => {
         req.flash("error", "Passwords don't match");
         res.status(400);
         res.render("join", {
-            pageTitle: "Join",
+            pageTitle: "Join"
         });
     } else {
-        //계정을 생성하고 이름 넣기
-        // req된 데이터들을 User model을 활용하여 use에 넣어준다
-        // passport의 register 메서드를 써서 user정보와 비번등록
         try {
             const user = await User({
                 name,
-                email,
+                email
             });
             await User.register(user, password);
-            // next를 호출함으로써 라우터의 다음 함수를 호출할 수 있다.
             next();
         } catch (error) {
             console.log(error);

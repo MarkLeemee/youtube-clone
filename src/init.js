@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import dotenv from "dotenv";
 import "./db";
 // init에서 application을 시작
